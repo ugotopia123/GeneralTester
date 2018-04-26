@@ -183,5 +183,26 @@ package display.text {
 		public static const YU_GOTHIC_UI_LIGHT:String = "Yu Gothic UI Light";
 		public static const YU_GOTHIC_UI_SEMIBOLD:String = "Yu Gothic UI Semibold";
 		public static const YU_GOTHIC_UI_SEMILIGHT:String = "Yu Gothic UI Semilight";
+		
+		
+		/**
+		 * Traces every found system font, useful if you're trying to apply dynamic font into a program and want to see your options since each system is different in which fonts they support
+		 * @param	traceWholeDefinition True to trace lines of definitions you can easily copy and paste into the TextFontReference class to use immediately. For instance for the font Times New Roman that trace line would be 'public static const TIMES_NEW_ROMAN:String = "Times New Roman";'. If false this method only traces each font name, like "Times New Roman"
+		 */
+		public static function traceSystemFonts(traceWholeDefinition:Boolean = true):void {
+			var fontArray:Array = Font.enumerateFonts(true);
+			
+			for (var i:uint = 0; i < fontArray.length; i++) {
+				var currentFont:String = Font(fontArray[i]).fontName;
+				
+				if (traceWholeDefinition) {
+					var fontSplit:String = currentFont;
+					fontSplit = currentFont.split(" ").join("_");
+					fontSplit = fontSplit.split("-").join("_");
+					trace("public static const " + fontSplit.toUpperCase() + ':String = "' + currentFont + '";');
+				}
+				else trace(currentFont);
+			}
+		}
 	}
 }

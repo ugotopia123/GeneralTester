@@ -17,7 +17,7 @@ package functionality {
 		}
 		
 		/**
-		 * Checks if this ComplexArray contains the given item. This is a shorthand for the indexOf(item) != -1
+		 * Checks if this ComplexArray contains the given item. This is a shorthand for the 'indexOf(item) != -1' line
 		 * @param	item The item to search for
 		 * @param	fromIndex Set if you want to start the search from a specific index, otherwise leave 0 to search the entire Array
 		 * @return	Whether or not this ComplexArray contains the given item
@@ -71,7 +71,7 @@ package functionality {
 			var indexVector:Vector.<uint> = new Vector.<uint>();
 			
 			for (var i:uint = 0; i < length; i++) {
-				var value:* = [i];
+				var value:* = this[i];
 				
 				if (removeNull && value === null) indexVector.push(i);
 				else if (removeUndefined && value === undefined) indexVector.push(i);
@@ -138,13 +138,94 @@ package functionality {
 		/**
 		 * Finds and returns the index location of the smallest number
 		 * @param	randomReturn True to return a random index if multiple contain the same smallest number, false to return the first index that contains the smallest number
-		 * @return	Either the first index where the smallest number is contained (if randomReturn is false), or a random index if multiple contain the smallest number (if randomReturn is true). If this ComplexArray contains no numbers or is empty, -1 is returned
+		 * @return	Either the first index where the smallest number is contained (if randomReturn is false), or a random index if multiple contain the smallest number (if randomReturn is true). If this ComplexArray or is empty, -1 is returned
 		 */
 		public function smallest(randomReturn:Boolean = false):int {
-			var smallest:Number;
-			var currentIndex:int = -1;
+			if (length == 0) return -1;
+			
+			var smallest:Number = this[0];
+			var currentIndex:uint = 0;
+			var randVector:Vector.<uint> = new Vector.<uint>();
+			
+			for (var i:uint = 0; i < length; i++) {
+				if (this[i] < smallest) {
+					smallest = this[i];
+					currentIndex = i;
+				}
+			}
+			
+			if (randomReturn) {
+				for (var j:uint = 0; j < length; j++) {
+					if (this[j] == smallest) {
+						randVector.push(j);
+					}
+				}
+				
+				return randVector[MathFunctions.randomNumber(0, randVector.length - 1)];
+			}
 			
 			return currentIndex;
+		}
+		
+		/**
+		 * Finds and returns the index location of the largest number
+		 * @param	randomReturn True to return a random index if multiple contain the same largest number, false to return the first index that contains the largest number
+		 * @return	Either the first index where the largest number is contained (if randomReturn is false), or a random index if multiple contain the largest number (if randomReturn is true). If this ComplexArray or is empty, -1 is returned
+		 */
+		public function largest(randomReturn:Boolean = false):int {
+			if (length == 0) return -1;
+			
+			var largest:Number = this[0];
+			var currentIndex:uint = 0;
+			var randVector:Vector.<uint> = new Vector.<uint>();
+			
+			for (var i:uint = 0; i < length; i++) {
+				if (this[i] > largest) {
+					largest = this[i];
+					currentIndex = i;
+				}
+			}
+			
+			if (randomReturn) {
+				for (var j:uint = 0; j < length; j++) {
+					if (this[j] == largest) {
+						randVector.push(j);
+					}
+				}
+				
+				return randVector[MathFunctions.randomNumber(0, randVector.length - 1)];
+			}
+			
+			return currentIndex;
+		}
+		
+		/**
+		 * Generates a ComplexArray that contains a randomly chosen percentage of this ComplexArray (this does not choose the same item more than once)
+		 * @param	percent The percent of items to randomly choose (for instance, 0.5 will choose a random half of the items in this ComplexArray). Any percent greater than or equal to 1 returns a shallow copy of this ComplexArray
+		 * @param	useRound True to round when calculating how many items to return. If false the function uses the useFloorOrCeil value
+		 * @param	useFloorOrCeil Only used if useRound is false. True to use Math.floor when calculating how many items to return, false to use Math.ceil
+		 * @return	A new ComplexArray containing a randomly chosen amount of items from this ComplexArray
+		 */
+		public function randomPercent(percent:Number, useRound:Boolean = true, useFloorOrCeil:Boolean = false):ComplexArray {
+			if (percent >= 1) return copy();
+			
+			var copyArray:ComplexArray = copy();
+			var returnArray:ComplexArray = new ComplexArray();
+			var chooseTotal:Number = length * percent;
+			
+			if (useRound) chooseTotal = Math.round(chooseTotal);
+			else if (useFloorOrCeil) chooseTotal = Math.floor(chooseTotal);
+			else chooseTotal = Math.ceil(chooseTotal);
+			
+			if (chooseTotal > copyArray.length) chooseTotal = copyArray.length;
+			
+			while (returnArray.length < chooseTotal) {
+				var randIndex:uint = MathFunctions.randomNumber(0, copyArray.length - 1);
+				returnArray.push(copyArray[randIndex]);
+				copyArray.removeAt(randIndex);
+			}
+			
+			return returnArray;
 		}
 	}
 }

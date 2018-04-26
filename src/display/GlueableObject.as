@@ -23,7 +23,7 @@ package display {
 			parentY = _parent.y;
 			
 			for (var i:uint = 0; i < glueList.length; i++) {
-				if (glueList[i] is DisplayObject && !(glueList[i] is Stage)) _glueList.push(glueList[i]);
+				glueObject(glueList[i]);
 			}
 		}
 		

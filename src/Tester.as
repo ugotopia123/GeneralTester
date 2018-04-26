@@ -1,9 +1,9 @@
 package {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.utils.Dictionary;
 	import functionality.ComplexArray;
-	import functionality.MathFunctions;
-	import flash.utils.getTimer;
+	import functionality.Serializer;
 	
 	/**
 	 * ...

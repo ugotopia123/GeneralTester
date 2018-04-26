@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'4/20/2018'</value>
+      <value>'4/26/2018'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -32,12 +32,12 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>D:\Programs\FlashDevelop\Creations\LibraryTester\src</path-element>
+      <path-element>D:\Programs\FlashDevelop\Creations\GeneralTester\src</path-element>
       <path-element>D:\Programs\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>D:\Programs\FlashDevelop\Creations\LibraryTester\src\Tester.as</path-element>
+    <path-element>D:\Programs\FlashDevelop\Creations\GeneralTester\src\Tester.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>60</default-frame-rate>

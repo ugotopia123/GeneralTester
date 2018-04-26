@@ -64,7 +64,15 @@ package functionality {
 		public static function smallest(numbers:Array):Number {
 			if (numbers.length == 0) return NaN;
 			
-			return numbers.slice().sort(Array.NUMERIC)[0];
+			var smallest:Number = numbers[0];
+			
+			for (var i:uint = 0; i < numbers.length; i++) {
+				var currentNum:Number = numbers[i];
+				
+				if (currentNum < smallest) smallest = currentNum;
+			}
+			
+			return smallest;
 		}
 		
 		/**
@@ -73,7 +81,15 @@ package functionality {
 		public static function largest(numbers:Array):Number {
 			if (numbers.length == 0) return NaN;
 			
-			return numbers.slice().sort(Array.NUMERIC)[numbers.length - 1];
+			var largest:Number = numbers[0];
+			
+			for (var i:uint = 0; i < numbers.length; i++) {
+				var currentNum:Number = numbers[i];
+				
+				if (currentNum > largest) largest = currentNum;
+			}
+			
+			return largest;
 		}
 		
 		/**
@@ -94,7 +110,7 @@ package functionality {
 		 * Checks if the given value is a positive number
 		 */
 		public static function isPositive(value:Number):Boolean {
-			return value == Math.abs(value);
+			return value > 0;
 		}
 		
 		/**
